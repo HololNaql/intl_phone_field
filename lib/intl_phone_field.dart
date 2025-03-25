@@ -225,6 +225,10 @@ class IntlPhoneField extends StatefulWidget {
   /// Whether to show cursor.
   final bool? showCursor;
 
+  final bool? allowToChooseCountry;
+
+  final String? countryCodeText;
+
   /// The padding of the Flags Button.
   ///
   /// The amount of insets that are applied to the Flags Button.
@@ -262,6 +266,7 @@ class IntlPhoneField extends StatefulWidget {
     this.textAlign = TextAlign.left,
     this.textAlignVertical,
     this.onTap,
+    this.countryCodeText,
     this.readOnly = false,
     this.initialValue,
     this.contextMenuBuilder,
@@ -277,6 +282,7 @@ class IntlPhoneField extends StatefulWidget {
     this.countries,
     this.onCountryChanged,
     this.onSaved,
+    this.allowToChooseCountry = true,
     this.showDropdownIcon = true,
     this.dropdownDecoration = const BoxDecoration(),
     this.inputFormatters,
@@ -472,7 +478,11 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
         decoration: widget.dropdownDecoration,
         child: InkWell(
           borderRadius: widget.dropdownDecoration.borderRadius as BorderRadius?,
-          onTap: widget.enabled ? _changeCountry : null,
+          onTap: widget.enabled
+              ? widget.allowToChooseCountry == true
+                  ? _changeCountry
+                  : null
+              : null,
           child: Padding(
             padding: widget.flagsButtonPadding,
             child: Row(
@@ -496,7 +506,7 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
                           width: 32,
                         )
                       : Text(
-                          _selectedCountry.flag,
+                          widget.countryCodeText ?? _selectedCountry.flag,
                           style: const TextStyle(fontSize: 18),
                         ),
                   const SizedBox(width: 8),
