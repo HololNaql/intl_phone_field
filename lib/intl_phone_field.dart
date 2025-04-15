@@ -506,14 +506,14 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
                           width: 32,
                         )
                       : Text(
-                          widget.countryCodeText ?? _selectedCountry.flag,
+                           _selectedCountry.flag,
                           style: const TextStyle(fontSize: 18),
                         ),
                   const SizedBox(width: 8),
                 ],
                 FittedBox(
                   child: Text(
-                    '+${_selectedCountry.dialCode}',
+                    widget.countryCodeText ??  '+${_selectedCountry.dialCode}',
                     style: widget.dropdownTextStyle,
                   ),
                 ),
